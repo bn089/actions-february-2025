@@ -1,49 +1,42 @@
-name: Create EC2 
+name: Create EC2
 
-on: 
-  workflow_dispatch: 
-    inputs: 
+on:
+  workflow_dispatch:
+    inputs:
       action:
         description: 'Terraform action to perform'
         required: true
         default: 'apply'
         type: choice
         options:
-          - destroy
           - apply
+          - destroy
 
-
-      region: 
-        description: 'AWS region to deploy to'
+      region:
+        description: 'Provide region'
         required: true
         default: 'us-east-1'
-        type: string
-      
 
-      ami_id: 
-        description: 'AMI ID to use for the EC2 instance'
+      ami_id:
+        description: 'Enter ami id'
         required: true
-        type: string
 
-      instance_type: 
-        description: 'EC2 instance type'
+      instance_type:
+        description: 'Provide instance type'
         required: true
         default: 't2.micro'
-        type: string
 
-jobs: 
-  deploy: 
-    runs-on: ubuntu-latest 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-    steps: 
-    - name: Checkout SCM 
+    steps:
+    - name: Checkout SCM
       uses: actions/checkout@v4
-      with: 
-        repository: bn089/actions-terraform 
+      with:
+        repository: kaizenacademy/actions-terraform
 
-    - name: Setup Terraform 
-      # Using a specific version of the setup-terraform action
-      # to ensure compatibility with the Terraform version specified
+    - name: Download Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: "1.12.2"
@@ -63,20 +56,16 @@ jobs:
         region = "${{ inputs.region }}"
         EOF
 
+    - name: Terraform Init
+      run: terraform init
 
-    - name: Terraform Init 
-      run: terraform init 
+    - name: Terraform Plan
+      run: terraform plan
 
-    - name: Terraform Plan 
-      run: terraform plan 
-
-    - name: Terraform Action 
-      run: | 
-        if [[ "${{ inputs.action}}" == "apply" ]]; then 
-          terraform apply -auto-approve 
-        else 
-          terraform destroy -auto-approve 
+    - name: Terraform Action
+      run: |
+        if [[ "${{ inputs.action }}" == "apply" ]]; then
+          terraform apply -auto-approve
+        else
+          terraform destroy -auto-approve
         fi
-
-
-
