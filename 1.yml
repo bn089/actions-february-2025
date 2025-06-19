@@ -12,25 +12,6 @@ on:
           - destroy
           - apply
 
-
-      region: 
-        description: 'AWS region to deploy to'
-        required: true
-        default: 'us-east-1'
-        type: string
-      
-
-      ami_id: 
-        description: 'AMI ID to use for the EC2 instance'
-        required: true
-        type: string
-
-      instance_type: 
-        description: 'EC2 instance type'
-        required: true
-        default: 't2.micro'
-        type: string
-
 jobs: 
   deploy: 
     runs-on: ubuntu-latest 
