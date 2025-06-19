@@ -14,5 +14,19 @@ jobs:
       with: 
         repository: bn089/actions-terraform 
 
+    - name: Setup Terraform 
+      # Using a specific version of the setup-terraform action
+      # to ensure compatibility with the Terraform version specified
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.12.2"
+
+
     - name: Terraform Init 
       run: terraform init 
+
+    - name: Terraform Plan 
+      run: terraform plan 
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
