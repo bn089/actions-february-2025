@@ -1,8 +1,7 @@
 name: Create EC2 
 
 on: 
-  push: 
-    branches: [ "main" ]
+  workflow_dispatch: 
 
 jobs: 
   deploy: 
@@ -37,3 +36,5 @@ jobs:
 
     - name: Terraform Destroy
       run: terraform destroy -auto-approve
+
+
