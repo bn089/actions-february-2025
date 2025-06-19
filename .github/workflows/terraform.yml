@@ -39,7 +39,7 @@ jobs:
     - name: Download Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: "1.12.2"
+        terraform_version: "1.6.6"
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4.1.0
