@@ -14,4 +14,4 @@ jobs:
       with: 
         repository: bn089/actions-terraform 
 
-    run: ls
+    - run: ls
